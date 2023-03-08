@@ -1,0 +1,4 @@
+env/
+.env
+ig_settings.json
+__pycache__/
