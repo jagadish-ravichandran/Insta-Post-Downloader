@@ -2,4 +2,3 @@ env/
 .env
 ig_settings.json
 __pycache__/
-config/
