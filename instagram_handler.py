@@ -22,7 +22,13 @@ class InstaBot:
     def getPost(self, url):
         data = {}
         id = self._cl.media_pk_from_url(url)
-        res = self._cl.media_info(id).dict()
+
+        try:
+            res = self._cl.media_info(id).dict()
+        except Exception as e:
+            print(e)
+            return {}
+        
         data["caption"] = res["caption_text"]
         data["resources"] = []
 
