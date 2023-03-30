@@ -1,4 +1,4 @@
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from functions import start, post_download, no_text
 from decouple import config
 
