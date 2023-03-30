@@ -1,10 +1,11 @@
 from instagrapi import Client
 import json
 import os
+from decouple import config
 
-IG_USERNAME = os.environ.get("USER")
-IG_PASSWORD = os.environ.get("PASS")
-IG_CREDENTIAL_PATH = "./ig_settings.json"
+IG_USERNAME = config("IG_USERNAME")
+IG_PASSWORD = config("IG_PASSWORD")
+IG_CREDENTIAL_PATH = "./config/login_cred.json"
 
 class InstaBot:
     _cl = None
