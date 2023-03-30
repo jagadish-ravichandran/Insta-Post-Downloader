@@ -1,4 +1,4 @@
-from insta_handler import InstaBot
+from instagram_handler import InstaBot
 
 async def start(update, context):
     chat_id = update.message.chat_id
@@ -19,8 +19,18 @@ async def no_text(update, context):
 async def post_download(update, context):
     obj = InstaBot()
     url = update.message.text
+    chat_id = update.effective_user.id
     result = obj.getPost(url)
-    error_msg = "No media found in this url"
-    await update.effective_message.reply_chat_action('typing')
-    await update.effective_message.reply_text(text= result)
+
+    caption = result["caption"]
+    await context.bot.send_message(chat_id=chat_id, text=caption)
+
+    for media in result["resources"]:
+        if media["type"] == "photo":
+            await context.bot.send_photo(chat_id= chat_id, photo = media["download_url"])
+        elif media["type"] == "video":
+            await context.bot.send_video(chat_id= chat_id, video = media["download_url"])
+    
+    
+
     
