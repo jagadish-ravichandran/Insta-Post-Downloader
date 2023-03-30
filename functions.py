@@ -1,5 +1,7 @@
 from instagram_handler import InstaBot
 
+obj = InstaBot()
+
 async def start(update, context):
     chat_id = update.message.chat_id
     welcome_msg = f"Hello {update.effective_user.first_name}! \nI'm here to download instagram posts !"
@@ -11,24 +13,33 @@ async def start(update, context):
 
 # handling unexpected input from user
 async def no_text(update, context):
-    error_msg = "Only Instagram Links are allowed !"
+    error_msg = "✅ Only Instagram Links are allowed !"
     await update.effective_message.reply_chat_action('typing')
     await update.effective_message.reply_text(error_msg)
 
 
 async def post_download(update, context):
-    obj = InstaBot()
     url = update.message.text
     chat_id = update.effective_user.id
+    await context.bot.send_message(chat_id=chat_id, text="😇 Fetching....")
     result = obj.getPost(url)
+    private_msg =  "❌ I cannot download private posts :("
+
+    if result == {}:
+        await update.effective_message.reply_chat_action('typing')
+        await context.bot.send_message(chat_id=chat_id, text=private_msg)
+        return 
 
     caption = result["caption"]
+    await update.effective_message.reply_chat_action('typing')
     await context.bot.send_message(chat_id=chat_id, text=caption)
 
     for media in result["resources"]:
         if media["type"] == "photo":
+            await update.effective_message.reply_chat_action('upload_photo')
             await context.bot.send_photo(chat_id= chat_id, photo = media["download_url"])
         elif media["type"] == "video":
+            await update.effective_message.reply_chat_action('upload_video')
             await context.bot.send_video(chat_id= chat_id, video = media["download_url"])
     
     
