@@ -5,7 +5,7 @@ from decouple import config
 
 IG_USERNAME = config("IG_USERNAME")
 IG_PASSWORD = config("IG_PASSWORD")
-IG_CREDENTIAL_PATH = "./config/login_cred.json"
+IG_CREDENTIAL_PATH = "./ig_settings.json"
 
 class InstaBot:
     _cl = None
