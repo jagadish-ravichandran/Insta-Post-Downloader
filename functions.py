@@ -1,6 +1,5 @@
 from instagram_handler import InstaBot
 
-obj = InstaBot()
 
 async def start(update, context):
     chat_id = update.message.chat_id
@@ -19,6 +18,7 @@ async def no_text(update, context):
 
 
 async def post_download(update, context):
+    obj = InstaBot()
     url = update.message.text
     chat_id = update.effective_user.id
     await context.bot.send_message(chat_id=chat_id, text="😇 Fetching....")
