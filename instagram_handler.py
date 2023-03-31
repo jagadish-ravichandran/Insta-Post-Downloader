@@ -3,6 +3,10 @@ import json
 import os
 from decouple import config
 
+from instagrapi.exceptions import (
+    MediaNotFound,
+    LoginRequired
+)
 IG_USERNAME = config("IG_USERNAME")
 IG_PASSWORD = config("IG_PASSWORD")
 IG_CREDENTIAL_PATH = "./ig_settings.json"
@@ -22,13 +26,21 @@ class InstaBot:
     def getPost(self, url):
         data = {}
         id = self._cl.media_pk_from_url(url)
+        exception_handled = False
 
         try:
             res = self._cl.media_info(id).dict()
-        except Exception as e:
+
+        except (MediaNotFound, LoginRequired) as e:
+            exception_handled = True
             print(e)
+
+        finally:
+            self._cl.logout()
+
+        if exception_handled:
             return {}
-        
+
         data["caption"] = res["caption_text"]
         data["resources"] = []
 
@@ -62,3 +74,14 @@ class InstaBot:
                     data["resources"].append(item)
         return data
     
+
+
+if __name__ == "__main__":
+    d = InstaBot()
+    #private post => 
+    url = "https://www.instagram.com/p/Ckin64-hviyr5i7bVCcHnxssUmOOdoZpZZIQBc0/"
+
+    #public post=>
+    # url = "https://www.instagram.com/reel/CqaBSmiJL2W/?utm_source=ig_web_copy_link"
+    r = d.getPost(url)
+    print(json.dumps(r, indent= 4))
