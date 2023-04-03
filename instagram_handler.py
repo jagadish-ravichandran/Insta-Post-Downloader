@@ -35,8 +35,8 @@ class InstaBot:
             exception_handled = True
             print(e)
 
-        finally:
-            self._cl.logout()
+        # finally:
+        #     self._cl.logout()
 
         if exception_handled:
             return {}
@@ -81,7 +81,9 @@ if __name__ == "__main__":
     #private post => 
     url = "https://www.instagram.com/p/Ckin64-hviyr5i7bVCcHnxssUmOOdoZpZZIQBc0/"
 
+
     #public post=>
     # url = "https://www.instagram.com/reel/CqaBSmiJL2W/?utm_source=ig_web_copy_link"
+    url = "https://www.instagram.com/reel/CqLEUCYuYRG/"
     r = d.getPost(url)
     print(json.dumps(r, indent= 4))
