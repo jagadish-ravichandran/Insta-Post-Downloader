@@ -25,7 +25,6 @@ class InstaBot:
 
     def getPost(self, url):
         data = {}
-        self.__init__()
         id = self._cl.media_pk_from_url(url)
         exception_handled = False
 
@@ -36,8 +35,8 @@ class InstaBot:
             exception_handled = True
             print(e)
 
-        finally:
-            self._cl.logout()
+        # finally:
+        #     self._cl.logout()
 
         if exception_handled:
             return {}
