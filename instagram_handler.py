@@ -85,5 +85,6 @@ if __name__ == "__main__":
 
     #public post=>
     # url = "https://www.instagram.com/reel/CqaBSmiJL2W/?utm_source=ig_web_copy_link"
+    url = "https://www.instagram.com/reel/CqLEUCYuYRG/"
     r = d.getPost(url)
     print(json.dumps(r, indent= 4))
