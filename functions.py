@@ -36,12 +36,10 @@ async def post_download(update, context):
     for media in result["resources"]:
         if media["type"] == "photo":
             await update.effective_message.reply_chat_action('upload_photo')
-            await context.bot.send_photo(chat_id= chat_id, photo = str(media["download_url"]))
+            await context.bot.send_photo(chat_id= chat_id, photo =str(media["download_url"]))
         elif media["type"] == "video":
-            print(media)
             await update.effective_message.reply_chat_action('upload_video')
-            url = "https://scontent.cdninstagram.com/"+"/".join((str(media["download_url"]).split('/'))[3:])
-            print(url)
+            url = "https://scontent.cdninstagram.com/"+"/".join((str(media["download_url"]).split('/'))[3:]) #redirected link
             await context.bot.send_video(chat_id= chat_id, video = url)
     
     
