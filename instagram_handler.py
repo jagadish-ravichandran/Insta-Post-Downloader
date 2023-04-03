@@ -25,6 +25,7 @@ class InstaBot:
 
     def getPost(self, url):
         data = {}
+        self.__init__()
         id = self._cl.media_pk_from_url(url)
         exception_handled = False
 
@@ -80,6 +81,7 @@ if __name__ == "__main__":
     d = InstaBot()
     #private post => 
     url = "https://www.instagram.com/p/Ckin64-hviyr5i7bVCcHnxssUmOOdoZpZZIQBc0/"
+
 
     #public post=>
     # url = "https://www.instagram.com/reel/CqaBSmiJL2W/?utm_source=ig_web_copy_link"
